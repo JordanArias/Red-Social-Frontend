@@ -3,9 +3,20 @@
     padding: 0px !important;
     border-radius: 0px !important;
 }
+
 .navigation .navbar{
     background-color: #284479 !important;
+    padding: 0px;
 }
-.navigation .navbar-nav li a{
-    color: #fff !important;
+
+.navigation .navbar-nav li a {
+    padding: 1rem;
+}
+/* CUANDO SE SELECCIONE UNA OPCION DEL MENU, CLASS ACTIVE ACTUA COMO SELECCIONADOR, EL BACKGROUND SOLO AL SELECCIONADO */
+.active{
+    background-color: #253c69;
+}
+
+.navigation .navbar-nav li:hover{
+    background-color: #304a7c;
 }

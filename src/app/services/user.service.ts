@@ -7,7 +7,7 @@ import { global } from './global'; // Importa la configuración global, que incl
 @Injectable() // Marca la clase como un servicio que puede ser inyectado en otros componentes o servicios.
 export class UserService {
     public url: string; // Declara una propiedad para almacenar la URL base de la API.
-    public identity: User | undefined; // Declara una propiedad para almacenar la identidad del usuario (opcional).
+    public identity: any; // Declara una propiedad para almacenar la identidad del usuario (opcional).
     public token: any; // Declara una propiedad para almacenar el token de autenticación (opcional).
 
     constructor(
@@ -21,5 +21,46 @@ export class UserService {
         let headers = new HttpHeaders().set('Content-Type', 'application/json'); // Configura los encabezados de la solicitud, indicando que el contenido es JSON.
 
         return this._http.post(this.url + 'register', params, { headers: headers }); // Realiza una solicitud POST a la URL de registro, enviando los parámetros y los encabezados configurados.
+    }
+
+    singup(user: User, gettoken:any): Observable<any> {
+        // Crear un objeto que incluya el user y el gettoken. Ya que el modelo user.module no tiene el atributo gettoken
+        const requestBody = {
+            ...user,  // Spread operator para incluir todas las propiedades de user
+            gettoken: gettoken
+        };
+
+        // Convertir el objeto a una cadena JSON
+        let params = JSON.stringify(requestBody);
+
+        // Configurar los encabezados
+        let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+        // Realizar la solicitud POST
+        return this._http.post(this.url + 'login', params, { headers: headers });
+    }
+
+    getIdentity() {
+        let identity = localStorage.getItem('identity');
+        console.log('(user.service) identity: ', identity);
+        
+        if (identity) {
+            this.identity = JSON.parse(identity); // Convertir el string JSON a objeto
+        } else {
+            this.identity = null;
+        }
+
+        return this.identity;
+    }
+
+    getToken(){
+        let token = localStorage.getItem('token');
+
+        if (token != undefined) {
+            this.token =token;
+        }else {
+            this.token = null;
+        }
+        return this.token;
     }
 }
