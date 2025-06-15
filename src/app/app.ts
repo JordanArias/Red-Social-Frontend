@@ -18,7 +18,7 @@ export class App implements OnInit, DoCheck{
 
   constructor(
     private _userService: UserService,
-    private _route: Router
+    private _router: Router
   ){
     this.title = 'NGSOCIAL';
   }
@@ -49,4 +49,9 @@ export class App implements OnInit, DoCheck{
     this.identity = this._userService.getIdentity();
   }
 
+  logout(){
+      localStorage.clear();
+      this.identity = null;
+      this._router.navigate(['/']);
+  }
 }

@@ -80,6 +80,8 @@ export class Login {
           //PERSISTIR TOKEN DEL USUARIO
           localStorage.setItem('token',JSON.stringify(this.token));
           //CONSEGUIR CONTADORES O ESTADISTICAS DEL USUARIO
+
+          this._router.navigate(['/']);
         }
 
       },
