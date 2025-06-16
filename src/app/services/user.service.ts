@@ -9,6 +9,7 @@ export class UserService {
     public url: string; // Declara una propiedad para almacenar la URL base de la API.
     public identity: any; // Declara una propiedad para almacenar la identidad del usuario (opcional).
     public token: any; // Declara una propiedad para almacenar el token de autenticación (opcional).
+    public stats: any; 
 
     constructor(
         private _http: HttpClient // Inyecta HttpClient en el constructor para poder realizar solicitudes HTTP.
@@ -42,7 +43,7 @@ export class UserService {
 
     getIdentity() {
         let identity = localStorage.getItem('identity');
-        console.log('(user.service) identity: ', identity);
+        // console.log('(user.service) identity: ', identity);
         
         if (identity) {
             this.identity = JSON.parse(identity); // Convertir el string JSON a objeto
@@ -62,5 +63,29 @@ export class UserService {
             this.token = null;
         }
         return this.token;
+    }
+
+    getStast(){
+        let stats = localStorage.getItem('stats');
+        if (stats) {
+            this.stats = JSON.parse(stats);
+        }else{
+            this.stats = null;
+        }
+
+        return this.stats;
+    }
+
+    getCounters(userId = null): Observable<any> {
+
+        // Configurar los encabezados
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization',this.getToken());
+
+        if (userId != null) {
+            return this._http.get(this.url + 'counters/' + userId, {headers:headers})
+        }else{
+            return this._http.get(this.url + 'counters', {headers:headers})
+        }
+
     }
 }

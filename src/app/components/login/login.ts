@@ -44,7 +44,6 @@ export class Login {
         if (!this.identity || !this.identity._id) {
           this.status = 'error';
         }else{
-          this.status = 'success';
           //PERSISTIR DATOS DEL USUARIO
           localStorage.setItem('identity',JSON.stringify(this.identity));
           //CONSEGUIR EL TOKEN
@@ -76,12 +75,13 @@ export class Login {
         if (this.token.length <= 0) {
           this.status = 'error';
         }else{
-          this.status = 'success';
+
           //PERSISTIR TOKEN DEL USUARIO
           localStorage.setItem('token',JSON.stringify(this.token));
-          //CONSEGUIR CONTADORES O ESTADISTICAS DEL USUARIO
 
-          this._router.navigate(['/']);
+          //CONSEGUIR CONTADORES O ESTADISTICAS DEL USUARIO
+          this.getCounters();
+
         }
 
       },
@@ -97,6 +97,23 @@ export class Login {
       }
     )
   }
+
+
+  getCounters(){
+    this._userService.getCounters().subscribe(
+      response => {
+        console.log(response);
+        localStorage.setItem('stats',JSON.stringify(response));
+        this.status = 'success';
+        this._router.navigate(['/']);
+      },
+      error => {
+        console.log(<any>error);
+        
+      }
+    )
+  }
+
 }
 
 
