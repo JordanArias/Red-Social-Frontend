@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { UserService } from './services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { global } from './services/global';
 
 @Component({
   selector: 'app-root',
@@ -15,12 +16,14 @@ import { CommonModule } from '@angular/common';
 export class App implements OnInit, DoCheck{
   public title:any;
   public identity:any;
+  public url:any;
 
   constructor(
     private _userService: UserService,
     private _router: Router
   ){
     this.title = 'NGSOCIAL';
+    this.url = global.url;
   }
 
   /**

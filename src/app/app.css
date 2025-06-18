@@ -20,3 +20,15 @@
 .navigation .navbar-nav li:hover{
     background-color: #304a7c;
 }
+
+.avatar{
+    width: 35px;
+    height: 35px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin: auto;
+}
+.avatar img{
+    height: auto;
+    width: 38px;
+}
