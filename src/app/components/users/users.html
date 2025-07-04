@@ -1,1 +1,50 @@
-<p>users works!</p>
+<div class="col-12" style="padding: 20px 30px 0 30px;">
+    <h1 class="h1-strong">{{title}}</h1>
+    <div class="users">
+        <div *ngFor="let user of users" class="item-user">
+            <div class="card">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <!-- IMAGEN Y NOMBRE DEL USUARIO -->
+                    <div class="d-flex align-items-center">
+                        <div class="image_user me-2">
+                            <a href="#">
+                                <img src="{{ url + 'get-image-user/' + user.image}}" *ngIf="user.image">
+                                <img src="assets/usuario.png" *ngIf="!user.image" alt="avatar">
+                            </a>
+                        </div>
+                        <div class="user_name">
+                            <p class="name-surname">
+                                <a href="#">
+                                    {{user.name + ' ' + user.surname}}
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- SEGUIR/DEJAR DE SEGUIR -->
+                    <div class="d-flex" *ngIf="user._id != identity._id">
+                        <button class="btn btn-success me-2" (click)="followUser(user._id)" *ngIf="follows.indexOf(user._id) < 0">Seguir</button>
+                        
+                        <button class="btn btn-primary" (click)="unfollowUser(user._id)" *ngIf="follows.indexOf(user._id) >= 0" 
+                                                        (mouseenter)="mouseEnter(user._id)"
+                                                        (mouseleave)="mouseLeave(user._id)"
+                                                        [class.btn-danger]="user._id == followUserOver">
+                            <span *ngIf="user._id == followUserOver; else following"> Dejar de seguir </span>
+                            <ng-template #following>
+                                <span> Siguiendo </span>
+                            </ng-template>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- PAGINACION -->
+        <ul class="pagination justify-content-end">
+            <li class="page-item" *ngIf="page > 1">
+                <a class="page-link" [routerLink]="['/users', prev_page]">Anterior</a>
+            </li>
+            <li class="page-item" *ngIf="pages != page">
+                <a class="page-link" [routerLink]="['/users', next_page]">Siguiente</a>
+            </li>
+        </ul>
+    </div>
+</div>
