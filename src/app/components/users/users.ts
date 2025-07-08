@@ -9,12 +9,13 @@ import { FormsModule } from '@angular/forms';
 import { UploadService } from '../../services/upload.service'; 
 import { global } from '../../services/global';
 import { FollowService } from '../../services/follow.service';
+import { Sidebar } from '../sidebar/sidebar'; 
 import { error, param } from 'jquery';
 
 
 @Component({
   selector: 'app-users',
-  imports: [RouterModule,FormsModule, CommonModule, HttpClientModule],
+  imports: [RouterModule,FormsModule, CommonModule, HttpClientModule,Sidebar],
   templateUrl: './users.html',
   styleUrl: './users.css',
   providers: [UserService, UploadService, FollowService]

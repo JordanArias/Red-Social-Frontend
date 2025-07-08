@@ -36,6 +36,7 @@ export class App implements OnInit, DoCheck{
   ngOnInit(){
     this.identity = this._userService.getIdentity();
     console.log('(app.ts) identity: ',this.identity);
+    this.getCounters();
   }
 
   /**
@@ -56,5 +57,17 @@ export class App implements OnInit, DoCheck{
       localStorage.clear();
       this.identity = null;
       this._router.navigate(['/']);
+  }
+
+  getCounters(){
+    this._userService.getCounters().subscribe(
+      response => {
+        console.log(response);
+        localStorage.setItem('stats',JSON.stringify(response));
+      },
+      error => {
+        console.log(<any>error);   
+      }
+    )
   }
 }
