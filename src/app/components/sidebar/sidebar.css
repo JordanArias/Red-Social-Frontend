@@ -6,7 +6,7 @@
     padding-bottom: 20px;
     border-bottom: 1px solid #eee;
 }
-#user-card{
+#user-card, #new-publication{
     width: 95%;
 }
 .avatar{

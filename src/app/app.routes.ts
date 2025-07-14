@@ -6,6 +6,7 @@ import { Register } from './components/register/register';
 import { Home } from './components/home/home';
 import { UserEdit } from './components/user-edit/user-edit';
 import { Users } from './components/users/users';
+import { Timeline } from './components/timeline/timeline';
 //RUTAS
 export const routes: Routes = [
   
@@ -14,11 +15,12 @@ export const routes: Routes = [
   { path: 'register',component: Register },
   { path: 'mis-datos',component: UserEdit },
   { path: 'users/:page',component: Users },
+  { path: 'timeline', component: Timeline},
 
 
-    //ruta por defecto
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+  //ruta por defecto
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
     //Manejo de rutas no encontradas
-    { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: '/home' }
   
 ];

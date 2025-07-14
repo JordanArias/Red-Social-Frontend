@@ -40,3 +40,23 @@
 </div>
 
 <!-- FORMULARIO DE PUBLICACIONES -->
+ <div id="new-publication" class="card mb-3">
+    <div class="card-body">
+        <form #newpublicationForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
+    
+            <p>
+                <label for="text">¿Que estas pensando hoy?</label>
+                <textarea type="text" name="text" #text="ngModel" [(ngModel)]="publication.text" class="form-control" required>
+                    <span *ngIf="text.invalid && text.touched">El texto de la publicación es requerido</span>
+                </textarea>
+            </p>
+    
+            <p class="d-flex flex-column">
+                <label for="file">Sube tu foto</label>
+                <input type="file" name="file" placeholder="Subir imagen"/>
+            </p>
+    
+            <input type="submit" value="Enviar" class="btn btn-success" [disabled]="newpublicationForm.invalid"/>
+        </form>
+    </div>
+ </div>
