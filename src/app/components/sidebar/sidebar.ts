@@ -10,6 +10,7 @@ import { UploadService } from '../../services/upload.service';
 import { global } from '../../services/global';
 import { FollowService } from '../../services/follow.service';
 import { Publication } from '../../models/publication.model';
+import { PublicationService } from '../../services/publication.service';
 import { error, param } from 'jquery';
 
 @Component({
@@ -17,7 +18,7 @@ import { error, param } from 'jquery';
   imports: [RouterModule,FormsModule, CommonModule, HttpClientModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
-  providers: [UserService, UploadService, FollowService]
+  providers: [UserService, UploadService, FollowService, PublicationService]
 })
 export class Sidebar implements OnInit{
   // Propiedades del componente
@@ -28,13 +29,15 @@ export class Sidebar implements OnInit{
   public url: any;             // URL base de la API
   public stats:any;
   public publication: Publication;
+  public status:any;
 
   constructor(
     private _userService: UserService,    // Servicio para operaciones de usuario
     private _followService: FollowService, // Servicio para operaciones de follow
     private _route: ActivatedRoute,              // Router para navegación
     private _router: Router,              // Router para navegación
-    private _uploadService: UploadService // Servicio para subir archivos
+    private _uploadService: UploadService, // Servicio para subir archivos
+    private _publicationService: PublicationService
   ){
     // Inicialización de propiedades en el constructor
     this.title = 'sidebar';                    // Título de la página
@@ -51,8 +54,27 @@ export class Sidebar implements OnInit{
       console.log(this.title);
       
   }
-  onSubmit(){
+  onSubmit(form:any){
     console.log(this.publication);
-    
+    this._publicationService.addPublication(this.token, this.publication).subscribe(
+      response => {
+        if (response.publication) {
+          this.publication = response.publication;
+          this.status = 'success';
+          form.reset();
+        }else{
+          this.status = 'error';
+        }
+      },
+      error => {
+        var errorMessage = <any>error; // Capturar el error
+        console.log(errorMessage); // Imprimir el error en la consola
+
+        // Si hay un error, establecer el estado en 'error'
+        if (errorMessage != null) {
+          this.status = 'error';
+        }
+      }
+    )
   }
 }

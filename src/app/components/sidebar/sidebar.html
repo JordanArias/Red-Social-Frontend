@@ -42,7 +42,15 @@
 <!-- FORMULARIO DE PUBLICACIONES -->
  <div id="new-publication" class="card mb-3">
     <div class="card-body">
-        <form #newpublicationForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
+        <div class="alert alert-success" *ngIf="status === 'success'">
+            Publicación enviada correctamente
+        </div>
+        <div class="alert alert-danger" *ngIf="status === 'error'">
+            Publicación no enviada correctamente
+    </div>
+    
+
+        <form #newpublicationForm="ngForm" (ngSubmit)="onSubmit(newpublicationForm)" class="col-lg-12">
     
             <p>
                 <label for="text">¿Que estas pensando hoy?</label>
