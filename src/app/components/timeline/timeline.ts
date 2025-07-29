@@ -2,24 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
-import { User } from '../../models/user.model';
-import { Follow } from '../../models/follow.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UploadService } from '../../services/upload.service'; 
 import { global } from '../../services/global';
-import { FollowService } from '../../services/follow.service';
-import { Publication } from '../../models/publication.model';
-import { error, param } from 'jquery';
 import { Sidebar } from '../sidebar/sidebar'; 
 import { PublicationService } from '../../services/publication.service';
+import moment from 'moment';
+import 'moment/locale/es'; // Importa el locale español
+
 
 @Component({
   selector: 'app-timeline',
-  imports: [RouterModule,FormsModule, CommonModule, HttpClientModule,Sidebar],
+  imports: [FormsModule, CommonModule, HttpClientModule, Sidebar],
   templateUrl: './timeline.html',
   styleUrl: './timeline.css',
-  providers: [UserService, UploadService, FollowService, PublicationService]
+  providers: [UserService, PublicationService]
 })
 export class Timeline implements OnInit{
   // Propiedades del componente
@@ -32,10 +29,6 @@ export class Timeline implements OnInit{
 
   constructor(
     private _userService: UserService,    // Servicio para operaciones de usuario
-    private _followService: FollowService, // Servicio para operaciones de follow
-    private _route: ActivatedRoute,              // Router para navegación
-    private _router: Router,              // Router para navegación
-    private _uploadService: UploadService, // Servicio para subir archivos
     private _publicationService: PublicationService
   ){
         // Inicialización de propiedades en el constructor
@@ -43,7 +36,9 @@ export class Timeline implements OnInit{
         this.identity = this._userService.getIdentity();            // Obtener datos del usuario desde localStorage
         this.token = this._userService.getToken();              // Obtener token desde localStorage
         this.url = global.url;                              // Obtener URL base desde configuración global
-        this.page = 1;                            
+        this.page = 1;     
+        // Configurar el locale a español
+        moment.locale('es');                       
   }
 
   ngOnInit(): void {
@@ -51,9 +46,15 @@ export class Timeline implements OnInit{
       this.getPublication(this.page, false);
   }
 
+  formatDate(date: string) {
+    return moment(date).format('YYYY-MM-DD HH:mm:ss'); // Cambia el formato según tus necesidades
+  }
+  getTimeAgo(date: string) {
+    return moment(date).fromNow();
+  }
+
   publications:any;
   total:any; pages:any; itemsPerPage:any;
-
   getPublication(page:any, adding:any){
     this._publicationService.getPublications(this.token, page).subscribe(
       response =>{
@@ -69,6 +70,8 @@ export class Timeline implements OnInit{
             var arrayA = this.publications;
             var arrayB = response.publications;
             this.publications = arrayA.concat(arrayB);
+
+            $("html, body").animate({ scrollTop: $('body').prop('scrollHeight')},500);
           }
 
           if (page > this.pages) {
@@ -109,5 +112,5 @@ export class Timeline implements OnInit{
     }
   }
 
-  
+
 }
