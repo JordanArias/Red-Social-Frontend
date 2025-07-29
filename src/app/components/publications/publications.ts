@@ -9,16 +9,15 @@ import { Sidebar } from '../sidebar/sidebar';
 import { PublicationService } from '../../services/publication.service';
 import moment from 'moment';
 import 'moment/locale/es'; // Importa el locale español
-import { Publications } from '../publications/publications';
 
 @Component({
-  selector: 'app-timeline',
-  imports: [FormsModule, CommonModule, HttpClientModule, Sidebar, Publications],
-  templateUrl: './timeline.html',
-  styleUrl: './timeline.css',
+  selector: 'app-publications',
+  imports: [FormsModule, CommonModule, HttpClientModule],
+  templateUrl: './publications.html',
+  styleUrl: './publications.css',
   providers: [UserService, PublicationService]
 })
-export class Timeline implements OnInit{
+export class Publications  implements OnInit{
   // Propiedades del componente
   public title: any;           // Título que se muestra en la página
   public identity: any;        // Datos del usuario autenticado (copia de user)
@@ -32,7 +31,7 @@ export class Timeline implements OnInit{
     private _publicationService: PublicationService,
   ){
         // Inicialización de propiedades en el constructor
-        this.title = 'Timeline';                    // Título de la página
+        this.title = 'Publications';                    // Título de la página
         this.identity = this._userService.getIdentity();            // Obtener datos del usuario desde localStorage
         this.token = this._userService.getToken();              // Obtener token desde localStorage
         this.url = global.url;                              // Obtener URL base desde configuración global
@@ -42,7 +41,7 @@ export class Timeline implements OnInit{
   }
 
   ngOnInit(): void {
-      console.log('Timeline.component cargado correctamente!');
+      console.log('Publications.component cargado correctamente!');
       this.getPublication(this.page, false);
   }
 
@@ -113,9 +112,7 @@ export class Timeline implements OnInit{
   }
 
 
-  refresh(event:any){
-    console.log('Recibiendo evento en timeline'); 
-    console.log(event);
-    this.getPublication(1, false);
-  }
+}
+{
+
 }

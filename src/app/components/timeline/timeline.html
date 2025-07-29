@@ -5,7 +5,7 @@
     <div class="col-lg-8">
         <div class="col-12" style="padding: 20px 30px 0 30px;">
             <h1 class="h1-strong">{{title}}</h1>
-
+    
             <div class="publications">
                 <div *ngFor="let publication of publications" class="item-publication">
                     <div class="card mb-3">
@@ -24,7 +24,7 @@
                                         {{ getTimeAgo(publication.created_at) }} <!-- Para el tiempo relativo -->
                                     </span>
                                 </div>
-
+    
                                 <div class="publication-text">
                                     {{publication.text}}
                                 </div>
@@ -39,10 +39,10 @@
                 Ver más publicaciones
             </button>
         </div>
-
+    
     </div>
 
     <div class="col-lg-4">
-        <app-sidebar></app-sidebar>
+        <app-sidebar (sended)="refresh($event)"></app-sidebar>
     </div>
 </div>

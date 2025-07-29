@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -62,6 +62,7 @@ export class Sidebar implements OnInit{
           this.publication = response.publication;
           this.status = 'success';
           form.reset();
+          this._router.navigate(['/timeline']);
         }else{
           this.status = 'error';
         }
@@ -77,4 +78,15 @@ export class Sidebar implements OnInit{
       }
     )
   }
+
+  //Output
+  @Output() sended = new EventEmitter();
+  sendPublication(event:any){
+    console.log('Enviando evento desde sidebar');
+    
+    console.log(event);
+    
+    this.sended.emit({send:'true'});
+  }
+
 }
