@@ -9,11 +9,10 @@ import { Sidebar } from '../sidebar/sidebar';
 import { PublicationService } from '../../services/publication.service';
 import moment from 'moment';
 import 'moment/locale/es'; // Importa el locale español
-import { Publications } from '../publications/publications';
 
 @Component({
   selector: 'app-timeline',
-  imports: [FormsModule, CommonModule, HttpClientModule, Sidebar, Publications],
+  imports: [FormsModule, CommonModule, HttpClientModule, Sidebar],
   templateUrl: './timeline.html',
   styleUrl: './timeline.css',
   providers: [UserService, PublicationService]

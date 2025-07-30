@@ -8,6 +8,7 @@ import { UserEdit } from './components/user-edit/user-edit';
 import { Users } from './components/users/users';
 import { Timeline } from './components/timeline/timeline';
 import { Publications } from './components/publications/publications';
+import { Profile } from './components/profile/profile';
 
 //RUTAS
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'users/:page',component: Users },
   { path: 'timeline', component: Timeline},
   { path: 'publications', component: Publications},
+  { path: 'perfil/:id', component: Profile},
 
   //ruta por defecto
   { path: '', redirectTo: '/home', pathMatch: 'full' },

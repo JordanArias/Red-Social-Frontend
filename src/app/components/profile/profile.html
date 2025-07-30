@@ -1,1 +1,27 @@
-<p>profile works!</p>
+
+
+
+<div class="row m-0">
+    <div class="col-lg-8">
+        <div class="col-12" style="padding: 20px 30px 0 30px;">
+            <h1 class="h1-strong">{{title}}</h1>
+
+        </div>
+        <div id="data-profile" style="padding-left: 20px;" class="d-flex">
+            <div class="avatar">
+                <img src="{{url + 'get-image-user/' + user.image}}" *ngIf="user.image">
+                <img src="assets/usuario.png" *ngIf="!user.image">
+            </div>
+            <div class="user-name ms-4">
+                <p class="name mb-1" style="font-weight: bold;">{{user.name}}</p>
+                <p class="surname" style="color: #383838;">{{user.surname}}</p>
+            </div>
+        </div>
+
+    
+    </div>
+
+    <div class="col-lg-4">
+        <app-sidebar></app-sidebar>
+    </div>
+</div>
