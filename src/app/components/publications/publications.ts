@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -25,7 +25,8 @@ export class Publications  implements OnInit{
   public url: any;             // URL base de la API
   public status:any;
   public page: any;
-
+  @Input() user: string | undefined;
+  
   constructor(
     private _userService: UserService,    // Servicio para operaciones de usuario
     private _publicationService: PublicationService,
@@ -35,16 +36,24 @@ export class Publications  implements OnInit{
         this.identity = this._userService.getIdentity();            // Obtener datos del usuario desde localStorage
         this.token = this._userService.getToken();              // Obtener token desde localStorage
         this.url = global.url;                              // Obtener URL base desde configuración global
-        this.page = 1;     
+        this.page = 1;
+        console.log('identity: ', this.identity._id);   
         // Configurar el locale a español
         moment.locale('es');                       
   }
 
   ngOnInit(): void {
       console.log('Publications.component cargado correctamente!');
-      this.getPublication(this.page, false);
+      console.log('USER: ',this.user);
+      // this.getPublication(this.user, this.page, false);
   }
-
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['user']) {
+      console.log('User recibido:', this.user);
+      // Aquí podés llamar a tu método para obtener publicaciones
+      this.getPublication(this.user, this.page, false);
+    }
+  }
   formatDate(date: string) {
     return moment(date).format('YYYY-MM-DD HH:mm:ss'); // Cambia el formato según tus necesidades
   }
@@ -54,8 +63,8 @@ export class Publications  implements OnInit{
 
   publications:any;
   total:any; pages:any; itemsPerPage:any;
-  getPublication(page:any, adding:any){
-    this._publicationService.getPublications(this.token, page).subscribe(
+  getPublication(user:any, page:any, adding:any){
+    this._publicationService.getPublicationsUser(this.token, user, page).subscribe(
       response =>{
         
         if (response.publications) {
@@ -98,21 +107,17 @@ export class Publications  implements OnInit{
   viewMore(){
     console.log('this.publications.lenght', this.publications.length);
     console.log('total: ', this.total);
-    
+    this.page += 1;
 
     
-    if (this.publications.length == this.total) {
+    if (this.page == this.pages) {
       this.noMore = true;
       console.log('true');
-    }else{
-      this.page += 1;
-      console.log('= ',this.publications.length == this.total);
-      this.getPublication(this.page, true);
     }
+
+    this.getPublication(this.user, this.page, true);
   }
 
 
 }
-{
 
-}

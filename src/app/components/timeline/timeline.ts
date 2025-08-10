@@ -98,17 +98,14 @@ export class Timeline implements OnInit{
   viewMore(){
     console.log('this.publications.lenght', this.publications.length);
     console.log('total: ', this.total);
-    
+    this.page += 1;
 
     
-    if (this.publications.length == this.total) {
+    if (this.page == this.pages) {
       this.noMore = true;
       console.log('true');
-    }else{
-      this.page += 1;
-      console.log('= ',this.publications.length == this.total);
-      this.getPublication(this.page, true);
     }
+    this.getPublication(this.page, true);
   }
 
 
