@@ -61,7 +61,7 @@
     
             <p class="d-flex flex-column">
                 <label for="file">Sube tu foto</label>
-                <input type="file" name="file" placeholder="Subir imagen"/>
+                <input type="file" name="file" placeholder="Subir imagen" (change)="fileChangeEvent($event)"/>
             </p>
     
             <input type="submit" value="Enviar" class="btn btn-success" [disabled]="newpublicationForm.invalid"/>

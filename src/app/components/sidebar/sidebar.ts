@@ -59,10 +59,16 @@ export class Sidebar implements OnInit{
     this._publicationService.addPublication(this.token, this.publication).subscribe(
       response => {
         if (response.publication) {
-          this.publication = response.publication;
-          this.status = 'success';
-          form.reset();
-          this._router.navigate(['/timeline']);
+          //this.publication = response.publication;
+
+          //Subir imagen
+          this._uploadService.makeFileRequest(this.url + 'upload-image-publication/' + response.publication._id, [], this.filestoUpload, this.token, 'image')
+              .subscribe((result:any) => {
+                  this.publication.file = result.image;
+                  this.status = 'success';
+                  form.reset();
+                  this._router.navigate(['/timeline']);
+              });
         }else{
           this.status = 'error';
         }
@@ -78,6 +84,12 @@ export class Sidebar implements OnInit{
       }
     )
   }
+
+  public filestoUpload: Array<File> = [];
+  fileChangeEvent(fileInput:any){
+    this.filestoUpload = <Array<File>>fileInput.target.files;
+  }
+
 
   //Output
   @Output() sended = new EventEmitter();
