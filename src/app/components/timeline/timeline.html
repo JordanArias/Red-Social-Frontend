@@ -18,7 +18,7 @@
                             </div>
                             <div>
                                 <div class="d-flex align-items-center">
-                                    <span class="me-2">{{publication.user.name + ' ' + publication.user.surname}}</span>
+                                    <a [routerLink]="['/perfil', publication.user._id ]" class="me-2">{{publication.user.name + ' ' + publication.user.surname}}</a>
                                     |
                                     <span class="ms-2 date">
                                         <!-- {{ formatDate(publication.created_at) }} Llama a un método en el componente -->

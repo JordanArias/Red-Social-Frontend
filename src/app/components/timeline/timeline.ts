@@ -12,7 +12,7 @@ import 'moment/locale/es'; // Importa el locale español
 
 @Component({
   selector: 'app-timeline',
-  imports: [FormsModule, CommonModule, HttpClientModule, Sidebar],
+  imports: [FormsModule, CommonModule, HttpClientModule, Sidebar, RouterModule],
   templateUrl: './timeline.html',
   styleUrl: './timeline.css',
   providers: [UserService, PublicationService]

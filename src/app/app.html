@@ -43,7 +43,7 @@
               {{identity.name}}
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/perfil', identity._id]">Mi perfil</a></li>
               <li><a class="dropdown-item" href="#" [routerLink]="['/mis-datos']" [routerLinkActive]="['active']">Mis datos</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#" (click)="logout()">Cerrar sesión</a></li>
