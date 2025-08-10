@@ -8,10 +8,11 @@ import { FollowService } from '../../services/follow.service';
 import { global } from '../../services/global';
 import { Sidebar } from '../sidebar/sidebar'; 
 import { error, param } from 'jquery';
+import { Publications } from '../publications/publications';
 
 @Component({
   selector: 'app-profile',
-  imports: [RouterModule,Sidebar, CommonModule],
+  imports: [RouterModule,Sidebar, CommonModule, Publications],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
   providers: [UserService, FollowService]
@@ -24,7 +25,6 @@ export class Profile implements OnInit{
     public token: any;           // Token de autenticación
     public url: any;             // URL base de la API
     public stats:any;
-    public follow: Follow | undefined;
     public status:any;
     
     constructor(
@@ -56,12 +56,26 @@ export class Profile implements OnInit{
     })
   }
 
+  followed = false; following = false;
   getUser(id:any){
     this._userService.getUser(id).subscribe(
       response => {
         if (response.user) {
           console.log(response);
           this.user = response.user;
+          
+          if (response.following && response.following._id) {
+            this.following = true;
+          }else{
+            this.following = false;
+          }
+
+          if (response.followed && response.followed._id) {
+            this.followed = true;
+          }else{
+            this.followed = false;
+          }
+
         }else{
           this.status = 'error';
         }
@@ -80,24 +94,67 @@ export class Profile implements OnInit{
     )
   }
 
-getCounters(id:any){
-  this._userService.getCounters(id).subscribe(
-    response => {
-      console.log(response);
-      
-      this.stats = response;
-    },
-    error => {
-      var errorMessage = <any>error; // Capturar el error
-      console.log(errorMessage); // Imprimir el error en la consola
+  getCounters(id:any){
+    this._userService.getCounters(id).subscribe(
+      response => {
+        console.log(response);
+        
+        this.stats = response;
+      },
+      error => {
+        var errorMessage = <any>error; // Capturar el error
+        console.log(errorMessage); // Imprimir el error en la consola
 
-      // Si hay un error, establecer el estado en 'error'
-      if (errorMessage != null) {
-        this.status = 'error';
+        // Si hay un error, establecer el estado en 'error'
+        if (errorMessage != null) {
+          this.status = 'error';
+        }
       }
-    }
-  )
-}
+    )
+  }
+
+  followUser(followed:any){
+    var follow = new Follow('', this.identity, followed);
+    this._followService.addFollow(this.token, follow).subscribe(
+      response => {
+        this.following = true;
+      },
+      error => {
+        var errorMessage = <any>error; // Capturar el error
+        console.log(errorMessage); // Imprimir el error en la consola
+
+        // Si hay un error, establecer el estado en 'error'
+        if (errorMessage != null) {
+          this.status = 'error';
+        }
+      }
+    )
+  }
+
+  unfollowUser(followed:any){
+    this._followService.deleteFollow(this.token, followed).subscribe(
+      response => {
+        this.following = false;
+      },
+      error => {
+        var errorMessage = <any>error; // Capturar el error
+        console.log(errorMessage); // Imprimir el error en la consola
+
+        // Si hay un error, establecer el estado en 'error'
+        if (errorMessage != null) {
+          this.status = 'error';
+        }
+      }
+    )
+  }
+
+  followUserOver:any;
+  mouseEnter(user_id:any){
+    this.followUserOver = user_id;
+  }
+  mouseLeave(){
+    this.followUserOver = 0;
+  }
 
 } 
 

@@ -12,12 +12,49 @@
                 <img src="{{url + 'get-image-user/' + user.image}}" *ngIf="user.image">
                 <img src="assets/usuario.png" *ngIf="!user.image">
             </div>
+
             <div class="user-name ms-4">
+                <div class="badge bg-secondary" *ngIf="followed">Te sigue</div>
                 <p class="name mb-1" style="font-weight: bold;">{{user.name}}</p>
                 <p class="surname" style="color: #383838;">{{user.surname}}</p>
+                <div class="follow">
+                    <button class="btn btn-success" *ngIf="!following" (click)="followUser(user._id)">Seguir</button>
+                    <button class="btn btn-primary" *ngIf="following" (click)="unfollowUser(user._id)" 
+                                                                    (mouseenter)="mouseEnter(user._id)"
+                                                                    (mouseleave)="mouseLeave()"
+                                                                    [class.btn-danger]="user._id == followUserOver">
+                        <span *ngIf="user._id == followUserOver; else following">Dejar de seguir</span>
+                        <ng-template #following>Siguiendo</ng-template>
+                    </button>
+                </div>
             </div>
-        </div>
 
+            <div class="stats ms-4 ps-4" *ngIf="stats">
+                <div class="following-data border-right">
+                    <a href="#"> 
+                        <span class="label-stats"> Siguiendo</span>
+                    </a>
+                    <span class="number-stats"> {{stats.following}} </span>
+                </div>
+                <div class="following-data border-right">
+                    <a href="#"> 
+                        <span class="label-stats"> Seguidores</span>
+                    </a>
+                    <span class="number-stats"> {{stats.followed}} </span>
+                </div>
+                <div class="following-data">
+                    <a href="#"> 
+                        <span class="label-stats"> Publicaciones</span>
+                    </a>
+                    <span class="number-stats"> {{stats.publications}} </span>
+                </div>
+            </div>
+
+        </div>
+        <div *ngIf="user">
+            <app-publications [user]="user._id"></app-publications>
+        </div>
+ 
     
     </div>
 

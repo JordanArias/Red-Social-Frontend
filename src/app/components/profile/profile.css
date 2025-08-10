@@ -16,3 +16,7 @@
 .user-name{
     font-size: 25px;
 }
+
+.stats{
+    border-left: 1px solid #383838;
+}
