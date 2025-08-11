@@ -9,6 +9,7 @@ import { Sidebar } from '../sidebar/sidebar';
 import { PublicationService } from '../../services/publication.service';
 import moment from 'moment';
 import 'moment/locale/es'; // Importa el locale español
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-timeline',
@@ -122,6 +123,23 @@ export class Timeline implements OnInit{
 
   hideThisImage(id:any){
     this.showImage = 0;
+  }
+
+  deletePublication(id:any){
+    this._publicationService.deletePublication(this.token, id).subscribe(
+      response => {
+        this.refresh(0);
+      },
+      error => {
+        var errorMessage = <any>error; // Capturar el error
+        console.log(errorMessage); // Imprimir el error en la consola
+
+        // Si hay un error, establecer el estado en 'error'
+        if (errorMessage != null) {
+          this.status = 'error';
+        }
+      }
+    )
   }
 
 }

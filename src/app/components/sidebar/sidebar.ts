@@ -62,13 +62,20 @@ export class Sidebar implements OnInit{
           //this.publication = response.publication;
 
           //Subir imagen
-          this._uploadService.makeFileRequest(this.url + 'upload-image-publication/' + response.publication._id, [], this.filestoUpload, this.token, 'image')
-              .subscribe((result:any) => {
-                  this.publication.file = result.image;
-                  this.status = 'success';
-                  form.reset();
-                  this._router.navigate(['/timeline']);
-              });
+          if (this.filestoUpload && this.filestoUpload.length) {
+            this._uploadService.makeFileRequest(this.url + 'upload-image-publication/' + response.publication._id, [], this.filestoUpload, this.token, 'image')
+            .subscribe((result:any) => {
+                this.publication.file = result.image;
+                this.status = 'success';
+                form.reset();
+                this._router.navigate(['/timeline']);
+            });
+          }else{
+            this.status = 'success';
+            form.reset();
+            this._router.navigate(['/timeline']);
+          }
+
         }else{
           this.status = 'error';
         }
