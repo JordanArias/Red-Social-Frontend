@@ -114,4 +114,14 @@ export class Timeline implements OnInit{
     console.log(event);
     this.getPublication(1, false);
   }
+
+  public showImage:any;
+  showThisImage(id:any){
+    this.showImage = id;
+  }
+
+  hideThisImage(id:any){
+    this.showImage = 0;
+  }
+
 }

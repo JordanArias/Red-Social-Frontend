@@ -30,6 +30,22 @@
                                 <div class="publication-text">
                                     {{publication.text}}
                                 </div>
+
+                                <div *ngIf="publication.file != null">
+                                    <button class="btn btn-warning" *ngIf="showImage != publication._id" 
+                                    (click)="showThisImage(publication._id)" [class.btn-danger]="showImage == publication._id">
+                                        imagen...
+                                    </button>
+                                    
+                                    <button class="btn btn-danger" *ngIf=" showImage == publication._id" 
+                                            (click)="hideThisImage(publication._id)" >
+                                        hide...
+                                    </button>
+                                </div>
+
+                                <div class="publication-file" *ngIf="publication.file && showImage == publication._id">
+                                    <img src="{{url + 'get-image-publication/' + publication.file}}" >
+                                </div>
                             </div>
                         </div>
                     </div>
