@@ -54,7 +54,7 @@ export class Sidebar implements OnInit{
       console.log(this.title);
       
   }
-  onSubmit(form:any){
+  onSubmit(form:any, event:any){
     console.log(this.publication);
     this._publicationService.addPublication(this.token, this.publication).subscribe(
       response => {
@@ -69,11 +69,13 @@ export class Sidebar implements OnInit{
                 this.status = 'success';
                 form.reset();
                 this._router.navigate(['/timeline']);
+                this.sended.emit({send:'true'});
             });
           }else{
             this.status = 'success';
             form.reset();
             this._router.navigate(['/timeline']);
+            this.sended.emit({send:'true'});
           }
 
         }else{

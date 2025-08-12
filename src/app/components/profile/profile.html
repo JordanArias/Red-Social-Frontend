@@ -31,7 +31,7 @@
 
             <div class="stats ms-4 ps-4" *ngIf="stats">
                 <div class="following-data border-right">
-                    <a href="#"> 
+                    <a [routerLink]="['/siguiendo', user._id, 1]"> 
                         <span class="label-stats"> Siguiendo</span>
                     </a>
                     <span class="number-stats"> {{stats.following}} </span>

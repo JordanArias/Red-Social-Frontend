@@ -18,7 +18,7 @@
 
         <div class="stats d-flex justify-content-between" *ngIf="stats">
             <div class="following-data border-right">
-                <a href="#"> 
+                <a [routerLink]="['/siguiendo', identity._id, 1]"> 
                     <span class="label-stats"> Siguiendo</span>
                 </a>
                 <span class="number-stats"> {{stats.following}} </span>
@@ -50,7 +50,7 @@
     </div>
     
 
-        <form #newpublicationForm="ngForm" (ngSubmit)="onSubmit(newpublicationForm); sendPublication($event)" class="col-lg-12">
+        <form #newpublicationForm="ngForm" (ngSubmit)="onSubmit(newpublicationForm, $event)" class="col-lg-12">
     
             <p>
                 <label for="text">¿Que estas pensando hoy?</label>
