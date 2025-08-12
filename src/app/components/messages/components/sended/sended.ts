@@ -13,20 +13,20 @@ import { Sidebar } from '../../../sidebar/sidebar';
 import { error } from 'jquery';
 
 @Component({
-  selector: 'app-received',
+  selector: 'app-sended',
   imports: [],
-  templateUrl: './received.html',
-  styleUrl: './received.css'
+  templateUrl: './sended.html',
+  styleUrl: './sended.css'
 })
-export class Received implements OnInit{
+export class Sended implements OnInit{
   public title:string;
 
   constructor(){
-    this.title = 'Mensajes recibidos';
+    this.title = 'Mensajes enviados';
   }
 
   ngOnInit(){
-    console.log('received.comnponent cargado...');
+    console.log('sended.comnponent cargado...');
   }
 
 }
