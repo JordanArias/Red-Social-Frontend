@@ -37,7 +37,7 @@
                     <span class="number-stats"> {{stats.following}} </span>
                 </div>
                 <div class="following-data border-right">
-                    <a href="#"> 
+                    <a [routerLink]="['/siguiendo', user._id, 1]"> 
                         <span class="label-stats"> Seguidores</span>
                     </a>
                     <span class="number-stats"> {{stats.followed}} </span>

@@ -10,6 +10,7 @@ import { Timeline } from './components/timeline/timeline';
 import { Publications } from './components/publications/publications';
 import { Profile } from './components/profile/profile';
 import { Following } from './components/following/following';
+import { Followed } from './components/followed/followed';
 
 //RUTAS
 export const routes: Routes = [
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path: 'publications', component: Publications},
   { path: 'perfil/:id', component: Profile},
   { path: 'siguiendo/:id/:page', component: Following},
+  { path: 'seguidores/:id/:page', component: Followed},
 
   //ruta por defecto
   { path: '', redirectTo: '/home', pathMatch: 'full' },

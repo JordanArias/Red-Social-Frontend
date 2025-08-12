@@ -43,4 +43,17 @@ export class FollowService {
         // Realizar la solicitud GET
         return this._http.get(url, { headers: headers });
     }
+
+    
+    getFollowed(token:any, user_id = null, page=1): Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+        
+        var url = this.url + 'followed';
+        if (user_id != null) {
+            url = this.url + 'followed/' + user_id + '/' + page;
+        }
+
+        // Realizar la solicitud GET
+        return this._http.get(url, { headers: headers });
+    }
 }
