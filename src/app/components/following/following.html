@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-8">
         <div class="col-12" style="padding: 20px 30px 0 30px;">
-            <h1 class="h1-strong">{{title}}</h1>
+            <h1 class="h1-strong">{{title}} {{user.name}}</h1>
             <div class="people" *ngIf="following">
                 <!-- LISTADO -->
                 <div *ngFor="let follow of following" class="item-user">

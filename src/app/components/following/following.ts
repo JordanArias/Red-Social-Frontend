@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { global } from '../../services/global';
 import { FollowService } from '../../services/follow.service';
 import { Sidebar } from '../sidebar/sidebar'; 
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-following',
@@ -77,8 +78,8 @@ export class Following {
         }
       }
 
-      // Llamar a la función para obtener el listado de usuarios
-      this.getFollows(user_id, page);
+      this.getUser(user_id, page);
+
     });
   }
 
@@ -124,6 +125,30 @@ export class Following {
         }
       }
     );
+  }
+
+  getUser(user_id:any, page:any){
+    this._userService.getUser(user_id).subscribe(
+      response => {
+        if (response.user) {
+          this.user = response.user;
+          
+          // Llamar a la función para obtener el listado de usuarios
+          this.getFollows(user_id, page);
+        }else {
+          this._router.navigate(['/home']);
+        }
+      },
+      error => {
+        var errorMessage = <any>error; // Capturar el error
+        console.log(errorMessage); // Imprimir el error en la consola
+
+        // Si hay un error, establecer el estado en 'error'
+        if (errorMessage != null) {
+          this.status = 'error';
+        }
+      }
+    )
   }
 
   followUserOver:any;
