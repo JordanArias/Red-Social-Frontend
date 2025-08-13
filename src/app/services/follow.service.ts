@@ -56,4 +56,11 @@ export class FollowService {
         // Realizar la solicitud GET
         return this._http.get(url, { headers: headers });
     }
+
+    getMyFollows(token:any): Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+        // Realizar la solicitud GET
+        return this._http.get(this.url +'get-my-follows/true', { headers: headers });
+    }
 }
