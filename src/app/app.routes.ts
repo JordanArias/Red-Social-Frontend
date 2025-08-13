@@ -12,6 +12,7 @@ import { Profile } from './components/profile/profile';
 import { Following } from './components/following/following';
 import { Followed } from './components/followed/followed';
 
+
 //RUTAS
 export const routes: Routes = [
   
@@ -25,6 +26,17 @@ export const routes: Routes = [
   { path: 'perfil/:id', component: Profile},
   { path: 'siguiendo/:id/:page', component: Following},
   { path: 'seguidores/:id/:page', component: Followed},
+  
+  // Ruta para el módulo de mensajes
+  {
+    // Ruta padre para acceder al módulo de mensajes
+    path: 'mensajes',
+  
+    // Lazy loading: carga el módulo MessagesModule solo cuando el usuario navega a /mensajes
+    loadChildren: () =>
+      import('./components/messages/messages.module') // Importa dinámicamente el módulo desde esta ruta
+        .then(m => m.MessagesModule)                 // Obtiene el módulo MessagesModule exportado
+  },
 
   //ruta por defecto
   { path: '', redirectTo: '/home', pathMatch: 'full' },

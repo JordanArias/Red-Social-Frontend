@@ -12,9 +12,11 @@ import { FollowService } from '../../../../services/follow.service';
 import { Sidebar } from '../../../sidebar/sidebar'; 
 import { error } from 'jquery';
 
+import { RouterOutlet } from '@angular/router';
+
 @Component({
   selector: 'app-main',
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './main.html',
   styleUrl: './main.css'
 })

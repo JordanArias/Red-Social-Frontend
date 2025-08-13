@@ -10,10 +10,13 @@ import 'bootstrap'; // Import Bootstrap para usar en el proyecto
 (window as any).$ = $;
 (window as any).jQuery = $;
 
-bootstrapApplication(App, {
-  providers: [
-    provideRouter(routes), // Configurar el enrutamiento
-    { provide: 'appConfig', useValue: appConfig } // Proveer appConfig como un valor
-  ]
-})
-.catch((err) => console.error(err));
+
+bootstrapApplication(App, appConfig)
+  .catch(err => console.error(err));
+// bootstrapApplication(App, {
+//   providers: [
+//     provideRouter(routes), // Configurar el enrutamiento
+//     { provide: 'appConfig', useValue: appConfig } // Proveer appConfig como un valor
+//   ]
+// })
+// .catch((err) => console.error(err));
