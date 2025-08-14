@@ -1,32 +1,119 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { UserService } from '../../../../services/user.service';
-import { User } from '../../../../models/user.model';
-import { Follow } from '../../../../models/follow.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { global } from '../../../../services/global';
+// MODELS
+import { User } from '../../../../models/user.model';
+import { Follow } from '../../../../models/follow.model';
+import { Message } from '../../../../models/message.model';
+// SERVICIOS
+import { UserService } from '../../../../services/user.service';
+import { MessageService } from '../../../../services/message..service';
 import { FollowService } from '../../../../services/follow.service';
-import { Sidebar } from '../../../sidebar/sidebar'; 
-import { error } from 'jquery';
+import { global } from '../../../../services/global';
+import moment from 'moment';
 
 @Component({
   selector: 'app-received',
-  imports: [],
+  imports: [FormsModule, CommonModule, HttpClientModule, RouterModule],
   templateUrl: './received.html',
-  styleUrl: './received.css'
+  styleUrl: './received.css',
+  providers: [UserService, FollowService, MessageService]
 })
 export class Received implements OnInit{
   public title:string;
+  public messages: any;
+  public identity: any;        // Datos del usuario autenticado (copia de user)
+  public token: any;           // Token de autenticación
+  public url: any;             // URL base de la API
+  public page: any;
+  public next_page: any;
+  public prev_page: any;
+  public status:any;
+  public follows:any;
 
-  constructor(){
-    this.title = 'Mensajes recibidos';
+  constructor(
+    private _route: ActivatedRoute,          // Router para navegación
+    private _router: Router,                // Router para navegación
+    private _userService: UserService,      // Servicio para operaciones de user
+    private _followService: FollowService, // Servicio para operaciones de follow
+    private _messageService: MessageService, // Servicio para operaciones de message
+  ){
+    this.title = 'Mensajes Recibidos';
+    this.identity = this._userService.getIdentity();            // Obtener datos del usuario desde localStorage
+    this.token = this._userService.getToken();              // Obtener token desde localStorage
+    this.url = global.url;     
+    // this.message = new Message('','','','',this.identity,'');
+
   }
+
 
   ngOnInit(){
     console.log('received.comnponent cargado...');
+    this.actualPage();
+  }
+  
+  actualPage() {
+    console.log('actualPage()');
+    
+    // Suscribirse a los parámetros de la ruta para obtener el número de página
+    this._route.params.subscribe(params => {
+      let page = +params['page']; // Convertir el parámetro 'page' a un número
+
+      this.page = page; // Asignar el número de página a la propiedad 'page'
+
+      if (!params['page']) {
+        page = 1;
+      }
+      
+      // Si no se proporciona un número de página, establecerlo en 1
+      if (!page) {
+        page = 1;
+      } else {
+        console.log('Page: ', page);
+        // Calcular la siguiente y la página anterior
+        this.next_page = page + 1; // La siguiente página es la actual más uno
+        this.prev_page = page - 1; // La página anterior es la actual menos uno
+
+        // Si la página anterior es menor o igual a 0, establecerla en 1
+        if (this.prev_page <= 0) {
+          this.prev_page = 1;
+        }
+      }
+
+      this.getMessages(this.token, this.page);
+
+    });
+  }
+
+  total:any; pages:any;
+  getMessages(token:any, page:any){
+    this._messageService.getMyMessages(token, page).subscribe(
+      response => {
+        if (!response.messages) {
+          
+        }else{
+          this.messages = response.messages;
+          this.total = response.total; // Almacenar el total de usuarios
+          this.pages = response.pages; // Almacenar el número total de páginas
+
+        }
+        
+      },
+      error => {
+        const errorMessage = <any>error
+        console.log('errorMessage: ',errorMessage);
+
+        if (errorMessage !=null) {
+          this.status = 'error';
+        }
+      }
+    )
+  }
+
+  getTimeAgo(date: string) {
+    return moment(date).fromNow();
   }
 
 }

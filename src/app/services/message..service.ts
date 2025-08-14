@@ -25,7 +25,7 @@ export class MessageService {
         return this._http.post(this.url + 'save-message', params, { headers: headers });
     }
 
-    getMessages(token:any ,page:1): Observable<any>{
+    getMyMessages(token:any ,page:1): Observable<any>{
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
         
         // Realizar la solicitud POST

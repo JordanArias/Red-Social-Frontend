@@ -61,10 +61,16 @@ export class Sended implements OnInit{
 
       this.page = page; // Asignar el número de página a la propiedad 'page'
 
+      if (!params['page']) {
+        page = 1;
+      }
+      
       // Si no se proporciona un número de página, establecerlo en 1
       if (!page) {
         page = 1;
       } else {
+        console.log('Page: ',page);
+        
         // Calcular la siguiente y la página anterior
         this.next_page = page + 1; // La siguiente página es la actual más uno
         this.prev_page = page - 1; // La página anterior es la actual menos uno
