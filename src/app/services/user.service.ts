@@ -4,7 +4,10 @@ import { Observable } from 'rxjs'; // Importa Observable para manejar las respue
 import { User } from '../models/user.model'; // Importa el modelo User que define la estructura de un usuario.
 import { global } from './global'; // Importa la configuración global, que incluye la URL base de la API.
 
-@Injectable() // Marca la clase como un servicio que puede ser inyectado en otros componentes o servicios.
+//@Injectable() // Marca la clase como un servicio que puede ser inyectado en otros componentes o servicios.
+@Injectable({
+    providedIn: 'root' // Asegúrate de que esto esté presente
+})
 export class UserService {
     public url: string; // Declara una propiedad para almacenar la URL base de la API.
     public identity: any; // Declara una propiedad para almacenar la identidad del usuario (opcional).
