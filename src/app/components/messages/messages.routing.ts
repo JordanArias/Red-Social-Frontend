@@ -16,8 +16,8 @@ export const messagesRoutes: Routes = [
         children: [ // Rutas hijas que se cargarán dentro del componente Main
             { path: '', redirectTo: 'recibidos', pathMatch: 'full' }, // Redirige a 'recibidos' si no se especifica ninguna ruta
             { path: 'enviar', component: Add }, // Ruta para enviar mensajes
-            { path: 'recibidos', component: Received }, // Ruta para ver mensajes recibidos
-            { path: 'enviados', component: Sended } // Ruta para ver mensajes enviados
+            { path: 'recibidos/:page', component: Received }, // Ruta para ver mensajes recibidos
+            { path: 'enviados/:page', component: Sended } // Ruta para ver mensajes enviados
         ]
     }
 ];

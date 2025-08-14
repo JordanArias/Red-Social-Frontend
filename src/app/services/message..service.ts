@@ -36,7 +36,7 @@ export class MessageService {
         let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
         
         // Realizar la solicitud POST
-        return this._http.get(this.url + 'messages/' + page, { headers: headers });
+        return this._http.get(this.url + 'emmited-messages/' + page, { headers: headers });
     }
 
     // deletePublication(token:any ,id:any): Observable<any>{

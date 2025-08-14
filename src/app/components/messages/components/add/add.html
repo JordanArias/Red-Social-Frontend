@@ -6,7 +6,7 @@
         </div>
         <!-- MENSAJE DE ALERTA -->
         <div class="alert alert-success" *ngIf="status === 'success'">
-            Has enviado el mensaje correctamente, miralo en <a [routerLink]="['/mensajes/eviados']">tus mensajes enviados</a>
+            Has enviado el mensaje correctamente, miralo en <a [routerLink]="['/mensajes/enviados',1]">tus mensajes enviados</a>
         </div>
         <div class="alert alert-danger" *ngIf="status === 'error'">
             No se ha podido enviar el mensaje correctamente, intentalo mas tarde
