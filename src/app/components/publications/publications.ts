@@ -32,7 +32,7 @@ export class Publications  implements OnInit{
     private _publicationService: PublicationService,
   ){
         // Inicialización de propiedades en el constructor
-        this.title = 'Publications';                    // Título de la página
+        this.title = 'Publicationes';                    // Título de la página
         this.identity = this._userService.getIdentity();            // Obtener datos del usuario desde localStorage
         this.token = this._userService.getToken();              // Obtener token desde localStorage
         this.url = global.url;                              // Obtener URL base desde configuración global
