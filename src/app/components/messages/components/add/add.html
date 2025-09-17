@@ -19,8 +19,8 @@
                 <label for="email">Para</label>
                 <!-- LISTADO DE SEGUIDORES -->
                  <select *ngIf="follows" name="receiver" #receiver="ngModel" [(ngModel)]="message.receiver" class="form-control">
-                    <option *ngFor="let follow of follows" [value]="follow.user._id">
-                        {{follow.user.name + ' ' + follow.user.surname}}
+                    <option *ngFor="let follow of follows" [value]="follow.followed._id">
+                        {{follow.followed.name + ' ' + follow.followed.surname}}
                     </option>
                  </select>
             </p>

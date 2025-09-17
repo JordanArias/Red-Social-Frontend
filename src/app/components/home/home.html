@@ -5,13 +5,13 @@
         <p class="text-center">Disfruta de las publicaciones de tus amigos y comparte tu vida!</p>
         <div class="d-flex justify-content-center align-items-center gap-2">
             <p>
-                <a href="#" class="btn btn-success btn-lg" role="button"> Mi perfil </a>
+                <a [routerLink]="['/perfil', identity._id]" class="btn btn-success btn-lg" role="button"> Mi perfil </a>
             </p>
             <p>
-                <a href="#" class="btn btn-primary btn-lg" role="button"> Timeline </a>
+                <a [routerLink]="['/timeline']" [routerLinkActive]="['active']" class="btn btn-primary btn-lg" role="button"> Publicaciones </a>
             </p>
             <p>
-                <a href="#" class="btn btn-secondary btn-lg" role="button"> Gente </a>
+                <a class="nav-link" [routerLink]="['/users/1']" class="btn btn-secondary btn-lg" role="button"> Personas </a>
             </p>
         </div>
     </div>

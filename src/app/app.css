@@ -5,7 +5,7 @@
 }
 
 .navigation .navbar{
-    background-color: #284479 !important;
+    background-color: #354789 !important;
     padding: 0px;
 }
 
@@ -14,11 +14,11 @@
 }
 /* CUANDO SE SELECCIONE UNA OPCION DEL MENU, CLASS ACTIVE ACTUA COMO SELECCIONADOR, EL BACKGROUND SOLO AL SELECCIONADO */
 .active{
-    background-color: #253c69;
+    background-color: #2c3a6e;
 }
 
 .navigation .navbar-nav li:hover{
-    background-color: #304a7c;
+    background-color: #34406c;
 }
 
 .avatar{

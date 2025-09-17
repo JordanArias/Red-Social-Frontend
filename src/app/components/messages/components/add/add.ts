@@ -54,9 +54,11 @@ export class Add implements OnInit{
   }
 
   getMyFollows(){
-    this._followService.getMyFollows(this.token).subscribe(
+    this._followService.getFollowing(this.token).subscribe(
       response =>{
-        this.follows = response.follows;
+        console.log(response);
+        
+        this.follows = response.followingUsers;
       },
       error => {
         const errorMessage = <any>error

@@ -22,7 +22,7 @@ export class App implements OnInit, DoCheck{
     private _userService: UserService,
     private _router: Router
   ){
-    this.title = 'NGSOCIAL';
+    this.title = 'REDSOCIAL';
     this.url = global.url;
   }
 
