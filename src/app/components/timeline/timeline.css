@@ -13,3 +13,7 @@ a {
 .avatar{
     width: 6%;
 }
+
+.publication-file img{
+    width: 100%;
+}

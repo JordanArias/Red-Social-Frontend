@@ -32,7 +32,7 @@ export class Timeline implements OnInit{
     private _publicationService: PublicationService,
   ){
         // Inicialización de propiedades en el constructor
-        this.title = 'Timeline';                    // Título de la página
+        this.title = 'Publicaciones';                    // Título de la página
         this.identity = this._userService.getIdentity();            // Obtener datos del usuario desde localStorage
         this.token = this._userService.getToken();              // Obtener token desde localStorage
         this.url = global.url;                              // Obtener URL base desde configuración global

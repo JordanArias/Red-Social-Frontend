@@ -7,8 +7,8 @@
     <div class="card-body">
         <div class="d-flex">
             <div class="avatar">
-                <img src="{{url + 'get-image-user/'+ identity.image}}" *ngIf="identity.name" alt="avatar" class="img-fluid rounded-circle">
-                <img src="assets/usuario.png" *ngIf="!identity.name" alt="avatar" class="img-fluid rounded-circle">
+                <img src="{{url + 'get-image-user/'+ identity.image}}" *ngIf="identity.image" alt="avatar" class="img-fluid rounded-circle">
+                <img src="assets/usuario.png" *ngIf="!identity.image" alt="avatar" class="img-fluid rounded-circle">
             </div>
             <div class="name-surname d-flex flex-column ps-3">
                 <a [routerLink]="['/perfil', identity._id]" style="color: black;"> {{identity.name}} </a>
