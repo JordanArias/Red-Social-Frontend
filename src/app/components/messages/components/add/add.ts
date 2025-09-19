@@ -58,7 +58,7 @@ export class Add implements OnInit{
       response =>{
         console.log(response);
         
-        this.follows = response.followingUsers;
+        this.follows = response.users_following;
       },
       error => {
         const errorMessage = <any>error
